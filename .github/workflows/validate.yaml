@@ -173,3 +173,25 @@ jobs:
         run: cmd /K melos run test --no-select
         env:
           FIREBASE_TOKEN: ${{ env.FIREBASE_TOKEN }}
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - id: permission
+        uses: actions-cool/check-user-permission@v2
+        with:
+          username: ${{ github.event.pull_request.user.login }}
+          require: 'write'
+      - run: echo "PR author access level ${{ steps.permission.outputs['user-permission'] }}"
+      - name: Print PR author access level
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set +e
+          perm=$(gh api "repos/${{ github.repository }}/collaborators/${{ github.event.pull_request.user.login }}/permission" --jq .permission 2>/dev/null)
+          code=$?
+          set -e
+          if [ "$code" -eq 0 ]; then
+            echo "PR author access level: $perm"
+          else
+            echo "PR author access level: not a direct collaborator (or could not resolve)"
+          fi
