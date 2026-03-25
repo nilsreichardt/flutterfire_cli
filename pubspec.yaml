@@ -18,3 +18,5 @@ dependency_overrides:
     path: ./packages/flutterfire_cli
 dependencies:
   pub_semver: ^2.2.0
+
+# test
