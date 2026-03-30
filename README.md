@@ -322,3 +322,4 @@ It will rewrite all your service files in place and your Dart initialization fil
     Built and maintained by <a href="https://invertase.io/?utm_source=readme&utm_medium=footer&utm_campaign=flutterfire_cli">Invertase</a>.
   </p>
 </p>
+a
